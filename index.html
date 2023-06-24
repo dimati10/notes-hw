@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+        .note span {
+            margin: 0px 10px 0px 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- vue app start -->
+        <div id="app">
+            <h1>{{ title }}</h1>
+            <form @submit.prevent="onSubmit">
+                <input type="text" required v-model="input.value" :placeholder="input.placeholder">
+                <button type="submit">Add new note</button>
+            </form>
+
+            <div class="notes">
+                <div class="note" v-for="(note, index) in notes" :key="note.id">
+                    <p>
+                        <span @click="remove(note)">&#10005;</span>
+                        <span v-if="!note.isEdit" @click="edit(note)">&#9998;</span>
+                        <span>{{ note.title }}</span>
+                    </p>
+                    <form v-if="note.isEdit" @submit.prevent="onEdit(note)">
+                        <input required v-model="note.title" type="text">
+                        <button type="submit">Ok</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- vue app end -->
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
